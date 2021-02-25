@@ -1,4 +1,4 @@
-\documentclass[a4paper, fontsize=12pt]{scrreprt}
+\documentclass[a4paper,headings=small fontsize=10pt]{scrreprt}
 \usepackage{background}
 \usepackage{listings}
 \usepackage{hyperref}
@@ -9,8 +9,8 @@
 
 
 
-\usepackage[british]{babel}
-\usepackage[autostyle,english=british]{csquotes}
+%\usepackage[british]{babel}
+%\usepackage[autostyle,english=british]{csquotes}
 \setlist[itemize]{noitemsep, topsep=0mm,
 labelindent=3mm, leftmargin=*,
 widest=3., align=right}
@@ -33,7 +33,8 @@ widest=3., align=right}
 \usepackage{xcolor,colortbl}
 \setlength{\parindent}{0em}
 \setlength{\parskip}{2em}
-\renewcommand{\baselinestretch}{1.25} 
+%\renewcommand{\baselinestretch}{1.25} 
+\linespread{1.25}
 
 \definecolor{faimsblue}{RGB}{27,62,147}
 \definecolor{faimsorange}{RGB}{246,142,30}
@@ -71,14 +72,16 @@ widest=3., align=right}
    {page1-template.pdf}}}
 
 
+%\usepackage[DIV=8]{typearea}
+
 \usepackage[a4paper]{geometry}
 
 \geometry{
  a4paper,
- left=40mm,
- top=60mm,
- right=40mm,
- bottom=40mm
+ left=30mm,
+ top=50mm,
+ right=30mm,
+ bottom=25mm
  }
  
 % \geometry{
@@ -114,7 +117,6 @@ widest=3., align=right}
 
 \newdateformat{ddmonyyyy}{\THEDAY{}  \monthname{} \THEYEAR{}}
 
-\ddmonyyyy
 
 \NewDocumentCommand{\allcaps}{m}{%
   {\addfontfeatures{LetterSpace=1.5}\uppercase{#1}}%
@@ -124,27 +126,33 @@ widest=3., align=right}
   {\addfontfeatures{LetterSpace=.9}#1}%
 }
 
+
+
+
+
+
 \renewcommand{\mddefault}{l}% switch default weight to light
 
 \title{Elaboration Report (With Template)}
 \author{Brian Ballsun-Stanton}
 \date{February 2021}
 \usepackage{anyfontsize}
+\ddmonyyyy
 
 \begin{document}
 \begin{titlepage}
 %\maketitle
 ~
-\vspace{1cm}%
+\vspace{-1cm}%
 
 
 
 
-\parbox{.7\textwidth}{
+\parbox{.6\textwidth}{
 \begin{flushleft}
 \setstretch{1}
 \fontspec{Open Sans}\selectfont
-\fontsize{36pt}{40pt}%
+\fontsize{30pt}{36pt}%
 \bfseries
 \selectfont%
 \textcolor{faimsblue}{%
@@ -159,11 +167,11 @@ Report}
 
 \vspace{-5mm}
 
-\parbox{.75\textwidth}{
+\parbox{.7\textwidth}{
 \setstretch{1}
 \begin{flushleft}
 
-\fontsize{22pt}{24pt}%
+\fontsize{18pt}{21pt}%
 \fontseries{l}%
 \selectfont%
 \textcolor{faimsblue}{%
@@ -179,11 +187,11 @@ Design technologies for 2021-2022 the mobile app development cycle}
 \vspace{1cm}
 \fontseries{l}%
 \selectfont%
-\begin{tabular}{@{}l p{10cm}}
+\begin{tabular}{@{}l p{.6\textwidth}}
 \textcolor{faimsblue}{
-For} & Technical Advisory Group \& Steering Committee \\
+For} & Technical Advisory Group \&\newline Steering Committee \\
 \textcolor{faimsblue}{License} & Creative Commons 4.0 International - With Attribution \\
-\textcolor{faimsblue}{Contact} & Brian Ballsun-Stanton <brian@faims.edu.au>
+\textcolor{faimsblue}{Contact} & Brian Ballsun-Stanton \newline <brian@faims.edu.au>
 \\
 \textcolor{faimsblue}{Version} & 1.0.0-SC
 \\
@@ -249,7 +257,7 @@ CRICOS Provider 00002J}
 \pagestyle{fancy}
 
 
-\backgroundsetup{scale = 1, angle = 0, opacity = 1, position={145mm,0mm},
+\backgroundsetup{scale = 1, angle = 0, opacity = 1, position={148mm,0mm},
    contents = {\includegraphics[width = 60mm, keepaspectratio]
    {Faims-large.png}}}
 

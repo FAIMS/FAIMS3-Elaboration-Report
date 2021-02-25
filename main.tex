@@ -1046,7 +1046,7 @@ accommodate user needs.
 
 
 \chapter{Technical Advisory Group
-Comments}
+Comments and Responses}
 
 \section{From Kate Robertson,
 email:}
@@ -1054,8 +1054,7 @@ email:}
 I've had a look at the document, no comments/changes etc from me, looks
 good- thorough and well explained.
 
-\section{From Richard Adams, text file via
-email:}
+\section{From Richard Adams, email:}
 
 Just a few specific points -
 
@@ -1163,73 +1162,101 @@ helping out or testing any external APIs to work with
 FAIM{[}S{]}-acquired data, and of course happy to follow up with more
 information on any of the testing/ PM ideas I mentioned above.
 
-\section{Brian's Response to Richard Adams
-(20210212)}
+\section{Response to Richard Adams}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\item Thanks for the nod for react. We absolutely plan to have some sort of
+\item Thanks for the advice regarding React. We plan to have some sort of
   consistent UI framework. Steve has explored a version of the
   elaboration prototype without react and has reported some significant
   size/complexity reductions. However this will be dictated by what
-  specific components React offers us. As I'm currently trapped trying
-  to rescue old rails code, the amount of dependencies required by react
+  specific components React offers us. The dependencies required by react
   are a non-trivial cost.
  
-\item Right now the primary plan for the API is to be external-facing, as we
+\item Right now the plan for the API is to be external-facing, as we
   are trying to avoid needing to code and maintain a "server" on top of
   everything that FAIMS 3 will already be. Some light data abstraction
-  layers, or at least data-format-consistency is certainly desirable and
+  layers, or at least data-format-consistency is desirable and
   will likely be requested by our external partners. How we're going to
   achieve that data consistency is not yet determined.
  
-\item We unfortunately have had the opposite problem. My goal for this
-  testing regimen is to avoid 2AM emergency tech support over flaky DSL
-  line to a field-site in Turkey. Again. The risks of data-loss and the
-  costs of patching are much higher in our offline regimen. Beyond that,
-  human costs while testing are one of the reasons why FAIMS 2 aged so
-  poorly, as we were not able to sustain maintenance development with
-  the week-plus regression tests needed. On the other hand, there are
-  real costs in this level of QA planning. My goal is to automate as
-  much QA as we can afford -- to minimise data-loss, flights, and 2AM
-  emergency international tech support. This is a very different
-  position to those who have normal access to their servers and
-  infrastructure.
+\item We unfortunately have had the opposite problem with testing and QA. 
+  My goal for this testing regimen is to avoid after-hours, emergency tech 
+  support over poor internet connections to projects in the field. Again. 
+  The risks of data-loss and the costs of patching are much higher for an 
+  offline system like ours. Beyond that, human costs while testing are one 
+  of the reasons why FAIMS 2 aged so poorly, as we were not able to sustain 
+  maintenance development with the week-plus regression tests needed. 
+  Conversely, we recognise the costs inherent to the proposed QA approach. 
+  My goal is to automate as much QA as we can afford -- to minimise data-loss and
+  emergency tech support to offline (or marginally online) projects in remote areas. 
+  This challenge is somewhat different from supporting users who have normal access 
+  to their servers and infrastructure.
  
 
   \begin{enumerate}
   \def\labelenumii{\alph{enumii}.}
-  \item     Yes, I also desire code-reviews. The specific pragmatics of the
+  \item Yes, we also desire code-reviews. The specific pragmatics of the
     situation have yet to resolve.
    
-  \item     The performance goals are mostly in relation to data capacity and
+  \item The performance goals are mostly in relation to data capacity and
     access. FAIMS 2, due to the append-only datastore, had issues with
-    high numbers of complex records. In our requirements for FAIMS 3, we
-    note: "ten times the number of records than in FAIMS 2" -- this
-    works out to tens to hundreds of thousands of rows. For mobile
-    battery, the primary consumer of the battery is the screen. However,
-    if future clients want to fund it, optimising for energy efficiency
-    is certainly possible even if it is outside our current budget.
+    high numbers of complex records. Automated performance testing (which we hope 
+    to implement again) allowed us to estimate when performance would drop off 
+    (i.e., at how many records) and plan projects appropriately. We hope the use 
+    of a noSQL database and other changes 
+    will mitigate these performance issues, but want to make sure, since we can't 
+    rely on online storage or processing during data collection and are constrained by device capability.
+    In our requirements for FAIMS 3, we target `ten times the number of records than in FAIMS 2' 
+    -- tens to hundreds of thousands of rows. 
+    
+    For mobile battery, the primary consumer of the battery 
+    is the screen (some optimisation may be possible here, but is probably outside
+    of our budget). With the partial exception of tracklogs (i.e., constant GPS use, 
+    especially under canopy) on some devices, we had very few problems with battery 
+    life in FAIMS 2 and do not expect any to arise (user testing should reveal any such
+    problems early on). 
    
   \end{enumerate}
-\item That is also my understanding, and why I will personally be
-  responsible for automating as much of this as I can.
+\item That is also our understanding (little or no benefit from manual builds), 
+   and why I will personally be responsible for automating DevOps as much as possible.
  
-\item We currently anticipate internal sprints. Once we pass Alpha, on the
-  other hand -- your more open approach does have some merit. The
-  fundamental decision point, unfortunately, is "workload" -- we may
-  not have enough capacity to run a public alpha. We hope to have fairly
-  open reporting about our progress, at the very least though.
+\item We currently anticipate internal sprints. Our project governance arrangement
+   includes `ad hoc user panels' who will advise about features and also complete UATs.
+   We think it will be possible to involve them in pre-alpha testing of discrete 
+   components of the system as they become minimally operational, offering an
+   opportunity for early feedback. We did something similar for FAIMS 2 and it was
+   very valuable. The user panels will certainly be involved in alpha testing.
+   We will be open about progress and feedback, with a public road map (as per Rory 
+   Macneil's recommendation, see below). 
  
-\item As an aside, the S in FAIMS stands for "Systems." Data
-  interoperability is important to us, see discussion around "external
-  round-trip" as one of our design goals for this version. We would love
-  for an ELN to be one of our partners. In terms of data linkage, the
-  answer is: "it depends on the researcher." We hope that by providing
-  mechanisms for external round-trips that researchers who want to tie
-  their data together in a system of their choice can do so.
+\item Data interoperability is important to us, see discussion around `external
+  round-trip' as one of our design goals for this version. We would love
+  for an ELN to be one of our partners and to explore interoperability. In 
+  terms of dividing data capture and management between pieces of software, we 
+  are focusing heavily on data capture in field contexts, and assume that 
+  researchers would use more appropriate tools for other data capture scenarios.
+  We then want to provide a capacity for data export in a way that will make the 
+  data as easy to reconcile (either by ingest into the other system, or into a third
+  system for combining data). To address your example, artefact analysis is something that we've 
+  considered a `core' activity that we'd do in FAIMS (since some of that analysis happens in 
+  the field / offline). Other analysis that usually happens in a lab (say, palynological 
+  analysis, radiometric dating, stable isotope analysis, etc.) would be better covered by an ELN
+  built more for that purpose. If the environmental samples for such analysis were recorded
+  using FAIMS, we could connect the data by (for example) assigning a persistent identifier (PID) in the 
+  field (e.g., an IGSN), printing a bar or QR code with the PID to include with the sample, scanning 
+  in that code in the lab, completing the analysis, and then reuniting the field and lab data based 
+  on the PID. Or, if it were easier, we could export the field data for ingest into the ELN 
+  as sample metadata. We're focusing on doing one thing - offline data capture - as well as possible, 
+  and then federating with other systems to do other things. Relating back to your API question, 
+  we are aiming for an API that 3rd-party apps can interact with, and would like to pursue 
+  interoperability with an ELN to allow integration of field and lab data. Ideally this 
+  interoperability would go both ways - it can be useful to have lab results when out 
+  in the field on subsequent fieldwork. As Brian mentioned, we're trying something 
+  analogous with Cloudstor (OwnCloud) interoperability (to allow online viewing / 
+  editing of data in OpenRefine or a GIS).
  
-\item Thanks! When we have APIs for user acceptance testing, I will make
+\item Thanks! When we have APIs for user acceptance testing, we will make
   sure to let you know.
  
 \end{enumerate}
@@ -1245,5 +1272,80 @@ direct knowledge of many of the technologies).
 I have read through and am happy with the document. The flow makes sense
 and I understand why certain options were chosen.
 
+\section{From Jonathan Smillie:}
 
+ \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  
+\item `The code and platform should last for at least five years, assuming 
+   regular maintenance'. {[}Is this an{]} expectation, or requirement?
+
+\item Is `server' here a central server per-end-user deployment? Or a single 
+   central server hosted by the FAIMS platform project itself? 
+   (Or are app instances acting as distributed peer-to-peer servers?)
+
+\item {[}Is{]} Export via app, or direct from server-side CouchDB instance?
+
+\end{enumerate}
+
+\section{Response to Jonathan Smillie:}
+
+ \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  
+\item Design expectation. A 5-year build time is based on our experience with FAIMS 2 and the 
+   pace of change in mobile technology. We have geared our business plan towards this expectation.
+
+\item The `server' represents a client's main datastore. Our hope is that each 
+   instance of the app can act as a `server' (since that will mean that we only 
+   need to code one app). While we will be offering hosted (online) `servers' for clients as part of our sustainability plan, 
+   being able to deploy offline to local hardware is essential for off-the-grid research teams.
+
+\item We have not yet specified export mechanism. The answer, we suspect, is `all of the above' -- 
+   We are likely to use one or both of the approaches you suggest, plus our plugin architecture implies 
+   that data-manipulation javascript can be loaded as part of the client. Partner organisations like AARNet
+   and the data repositories will also be working with us on export capabilities. 
+
+\end{enumerate}
+
+\section{From Rory Macneil, email and conversation (excerpted / paraphrased):}
+
+\begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  
+\item Ensure that development is market-led / customer-led rather than technically led by 
+   involving users or clients at every stage of testing, getting feedback early and often 
+   (and responding to it). 
+   
+\item UI/UX is everything (for uptake and ultimate success). Invest in it appropriately. UI/UX can serve as a bridge 
+   between the development team and the commercial or client-facing side of the operation.
+   Do detailed documentation as you develop each feature, involving the dev team. Publicise
+   development early, providing a roadmap. Make short videos about new features. 
+   Alongside involving users in testing, these activities
+   can build a community of interested people who are potential customers. 
+   
+\item Investigate tools for customer engagement. we use Intercom (statistics on users and usage),
+   Simpo (onboarding tool for non-technical users), HelpDocs (documentation), noting that these tools 
+   integrate with one another.
+   
+\item During development, RSpace (specifically referring to the Inventory Hub product) provides:
+   \begin{itemize}
+     \item Two-minute videos covering key features in each release.
+     \item An easy-to-understand Roadmap (on Trello NOT github because our users are not developers).
+     \item Full user documentation of all features as they are developed.
+     \item Professionally designed and delivered user testing sessions.
+     \item Sandbox instance where anyone can try out the latest version.
+   \end{itemize}
+\item Design your permissions system early; SSO integraion is painful (but necessary for enterprises).
+
+\end{enumerate}
+
+\section{Response to Rory Macneil}
+
+   Thank you! We have consciously attempted to ensure our 
+   development is market/customer-driven, but this reminder is timely. We have also 
+   used some of these approaches in the past, but not all of them, especially as part of a `package' like 
+   you suggest. We will work to incorporate these suggestions, although some will require additional 
+   resourcing (which we are currently seeking).
+   
 \end{document}

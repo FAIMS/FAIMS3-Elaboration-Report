@@ -231,9 +231,35 @@ Elizabeth Mannering
     
 }
 
-\RedeclareSectionCommand[beforeskip=0pt,afterskip=1mm]{chapter}
-\RedeclareSectionCommand[beforeskip=2mm,afterskip=1mm]{section}
-\RedeclareSectionCommand[beforeskip=2mm,afterskip=1mm]{subsection}
-\RedeclareSectionCommand[beforeskip=2mm,afterskip=1mm]{subsubsection}
+\RedeclareSectionCommand[
+  %runin=false,
+  afterindent=false,
+  beforeskip=0pt,
+  afterskip=.5\baselineskip]{chapter}
+\RedeclareSectionCommand[
+  %runin=false,
+  afterindent=false,
+  beforeskip=\baselineskip,
+  afterskip=.5\baselineskip]{section}
+\RedeclareSectionCommand[
+  %runin=false,
+  afterindent=false,
+  beforeskip=.75\baselineskip,
+  afterskip=.5\baselineskip]{subsection}
+\RedeclareSectionCommand[
+  %runin=false,
+  afterindent=false,
+  beforeskip=.5\baselineskip,
+  afterskip=.25\baselineskip]{subsubsection}
+\RedeclareSectionCommand[
+  runin=true,
+  %afterindent=false,
+  beforeskip=.5\baselineskip,
+  afterskip=1em]{paragraph}
+\RedeclareSectionCommand[
+  runin=true,
+  %afterindent=false,
+  beforeskip=.5\baselineskip,
+  afterskip=1em]{subparagraph}
 %https://tex.stackexchange.com/a/39991
 \endinput

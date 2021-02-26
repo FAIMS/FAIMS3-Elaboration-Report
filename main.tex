@@ -64,7 +64,7 @@ widest=3., align=right}
 
 \setkomafont{section}{\Large\color{faimsblue}}
 \setkomafont{subsection}{\large\color{faimsblue}}
-
+\setkomafont{subsubsection}{\color{faimsblue}}
 
 \backgroundsetup{firstpage = true,scale = 1, angle = 0, opacity = 1,
    contents = {\includegraphics[width = \paperwidth,
@@ -75,15 +75,19 @@ widest=3., align=right}
 %\usepackage[DIV=8]{typearea}
 
 \usepackage[a4paper]{geometry}
-
+\usepackage{setspace}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
 \geometry{
  a4paper,
- left=30mm,
- top=50mm,
- right=30mm,
- bottom=25mm
+ left=20mm,
+ top=37.5mm,
+ right=20mm,
+ bottom=27.5mm,
+ footskip=10mm
  }
- 
+ \renewcommand{\footruleskip}{2mm}
+
 % \geometry{
 %  a4paper,
 %  left=20mm,
@@ -92,9 +96,7 @@ widest=3., align=right}
 %  bottom=30mm
 %  }
 
-\usepackage{setspace}
-\usepackage{lipsum}
-\usepackage{fancyhdr}
+
 
 \fancyhead{}
 \fancyfoot{}
@@ -102,11 +104,11 @@ widest=3., align=right}
 
 \renewcommand{\headrulewidth}{0.0pt}
 \renewcommand{\footrulewidth}{0.0pt}
-\fancyfoot[R]{\textlt\small\color{faimsblue}\thepage}
-\fancyfoot[L]{\textlt\small\color{faimsblue}\textbf{CC-BY} Macquarie University}
+\fancyfoot[R]{\color{faimsblue}\fontspec{Open Sans}\fontseries{c}\selectfont\footnotesize\thepage}
+\fancyfoot[L]{\color{faimsblue}\fontspec{Open Sans}\fontseries{c}\selectfont\footnotesize{}CC-BY Macquarie University}
 
 
-\renewcommand{\footrulewidth}{0.25pt}
+\renewcommand{\footrulewidth}{0.0pt}
 \makeatletter
 \patchcmd{\footrule}
   {\if@fancyplain}
@@ -143,11 +145,11 @@ widest=3., align=right}
 \begin{titlepage}
 %\maketitle
 ~
-\vspace{-1cm}%
+\vspace{1cm}%
 
 
 
-
+%\fbox{
 \parbox{.6\textwidth}{
 \begin{flushleft}
 \setstretch{1}
@@ -163,6 +165,7 @@ Report}
 }
 \end{flushleft}
 }
+%}
 %https://tex.stackexchange.com/questions/68745/possible-values-for-fontseries-and-fontshape
 
 \vspace{-5mm}
@@ -185,6 +188,7 @@ Design technologies for 2021-2022 the mobile app development cycle}
 {\renewcommand{\arraystretch}{1.5}
 
 \vspace{1cm}
+
 \fontseries{l}%
 \selectfont%
 \begin{tabular}{@{}l p{.6\textwidth}}
@@ -257,8 +261,8 @@ CRICOS Provider 00002J}
 \pagestyle{fancy}
 
 
-\backgroundsetup{scale = 1, angle = 0, opacity = 1, position={148mm,0mm},
-   contents = {\includegraphics[width = 60mm, keepaspectratio]
+\backgroundsetup{scale = 1, angle = 0, opacity = 1, position={162mm,10mm},
+   contents = {\includegraphics[width = 40mm, keepaspectratio]
    {Faims-large.png}}}
 
 
@@ -277,7 +281,7 @@ FAIMS3 is a ground-up rewrite of the
 geospatial, multimedia, field-data collection application
 \autocite{Ballsun-Stanton2018-hq}. This rewrite is designed to be multi-platform, maintainable, and
 to support data collection at a citizen-science scale. The code and
-platform should last for at least five years, assuming regular
+platform should last for at least five years\footnote{this is a footnote}, assuming regular
 maintenance.
 
 These are difficult objectives.
@@ -1048,14 +1052,14 @@ accommodate user needs.
 \chapter{Technical Advisory Group
 Comments and Responses}
 
-\section{From Kate Robertson,
-email:}
-
+From Kate Robertson, email:
+\begin{quote}
 I've had a look at the document, no comments/changes etc from me, looks
 good- thorough and well explained.
+\end{quote}
 
-\section{From Richard Adams, email:}
-
+From Richard Adams, email:
+\begin{quote}
 Just a few specific points -
 
 1) We've found react.js to be excellent in our project and we are
@@ -1078,8 +1082,7 @@ each other? This would help with maintaining stability of the API for
 
 3) Testing and QA
 
-\begin{itemize}
-\item Always a thorny issue. For RSpace, we initially wrote manual test
+ Always a thorny issue. For RSpace, we initially wrote manual test
   scripts for all features, then employed someone to automate them as
   much as possible using Selenium. This is an enormous effort to
   maintain; the tests can be fragile and with over 300 of them the false
@@ -1093,26 +1096,26 @@ each other? This would help with maintaining stability of the API for
   this cuts down a lot of duplication of writing out requirements, then
   writing a largely similar testing document.
  
-\item The aim is to do `just enough testing but no more' ie- how little
+The aim is to do `just enough testing but no more' ie- how little
   acceptance testing can we do, before we get an unacceptable defect
   rate? So far, results are encouraging. Also, for software designed to
   be used by humans, manual testing by humans is essential, and actually
   beneficial due to insights into user-experience that automated testing
   would ignore.
  
-\item Having said that, there is some scope perhaps for a small number of
+Having said that, there is some scope perhaps for a small number of
   automated integration `smoke tests' that can detect egregious defects
   on a nightly build. We recently evaluated Cypress.io and liked it as a
   possible successor to Selenium for test automation; I understand they
   are developing a component-testing framework as well.
  
-\item Code coverage is OK for catching gaping holes in test coverage - for
+Code coverage is OK for catching gaping holes in test coverage - for
   example finding whole files or components; but a coverage tool has to
   be able to indicate branches and statements covered as well as just
   lines, in order to make sure that infrequently-called blocks are also
   tested ( for example exception/failure handling code).
  
-\item Are you planning to do code-reviews as part of your Git workflow, e.g
+Are you planning to do code-reviews as part of your Git workflow, e.g
   before merging a feature branch to mainline? We have found these
   useful; people really improve their code if they know their colleagues
   are going to comment on it; and it also implicitly spreads knowledge
@@ -1122,13 +1125,12 @@ each other? This would help with maintaining stability of the API for
   markedly improved since we started requiring manual code review before
   merge.
  
-\item You mention that performance testing will be possible with this new
+You mention that performance testing will be possible with this new
   process but it's not elaborated further - are some performance goals
   going to be established? I expect a mobile app in the field, efficient
   power usage is essential to maximise battery life, is that a design
   goal at all?
  
-\end{itemize}
 
 4) Devops
 
@@ -1161,11 +1163,11 @@ is if an ELN could be used to tie everything together.
 helping out or testing any external APIs to work with
 FAIM{[}S{]}-acquired data, and of course happy to follow up with more
 information on any of the testing/ PM ideas I mentioned above.
+\end{quote}
 
-\section{Response to Richard Adams}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
+Response to Richard Adams
+\begin{quote}
+\begin{enumerate}[itemsep=1em]
 \item Thanks for the advice regarding React. We plan to have some sort of
   consistent UI framework. Steve has explored a version of the
   elaboration prototype without react and has reported some significant
@@ -1195,7 +1197,6 @@ information on any of the testing/ PM ideas I mentioned above.
  
 
   \begin{enumerate}
-  \def\labelenumii{\alph{enumii}.}
   \item Yes, we also desire code-reviews. The specific pragmatics of the
     situation have yet to resolve.
    
@@ -1260,23 +1261,23 @@ information on any of the testing/ PM ideas I mentioned above.
   sure to let you know.
  
 \end{enumerate}
-
-\section{From Jeff Good}
-
+\end{quote}
+From Jeff Good
+\begin{quote}
 I read through the document and found it to be very well explained and
 thorough. The choices seem well justified to me (though I can't speak to
 direct knowledge of many of the technologies).
+\end{quote}
 
-\section{From Nathan Reid}
-
+From Nathan Reid
+\begin{quote}
 I have read through and am happy with the document. The flow makes sense
 and I understand why certain options were chosen.
+\end{quote}
 
-\section{From Jonathan Smillie:}
-
- \begin{enumerate}
-  \def\labelenumii{\alph{enumii}.}
-  
+From Jonathan Smillie:
+\begin{quote}
+ \begin{enumerate}[itemsep=1em]
 \item `The code and platform should last for at least five years, assuming 
    regular maintenance'. {[}Is this an{]} expectation, or requirement?
 
@@ -1287,12 +1288,12 @@ and I understand why certain options were chosen.
 \item {[}Is{]} Export via app, or direct from server-side CouchDB instance?
 
 \end{enumerate}
+\end{quote}
 
-\section{Response to Jonathan Smillie:}
+Response to Jonathan Smillie:
 
- \begin{enumerate}
-  \def\labelenumii{\alph{enumii}.}
-  
+ \begin{enumerate}[itemsep=1em]
+
 \item Design expectation. A 5-year build time is based on our experience with FAIMS 2 and the 
    pace of change in mobile technology. We have geared our business plan towards this expectation.
 
@@ -1308,11 +1309,10 @@ and I understand why certain options were chosen.
 
 \end{enumerate}
 
-\section{From Rory Macneil, email and conversation (excerpted / paraphrased):}
+From Rory Macneil, email and conversation (excerpted / paraphrased):
+\begin{quote}
+\begin{enumerate}[itemsep=1em]
 
-\begin{enumerate}
-  \def\labelenumii{\alph{enumii}.}
-  
 \item Ensure that development is market-led / customer-led rather than technically led by 
    involving users or clients at every stage of testing, getting feedback early and often 
    (and responding to it). 
@@ -1339,13 +1339,15 @@ and I understand why certain options were chosen.
 \item Design your permissions system early; SSO integration is painful (but necessary for enterprises).
 
 \end{enumerate}
+\end{quote}
 
-\section{Response to Rory Macneil}
+Response to Rory Macneil
 
+\begin{quote}
 Thank you! We have consciously attempted to ensure our development is market/customer-driven, 
 but this reminder is timely. We have also used some of these approaches in the past, but 
 not all of them, especially as part of a `package' like you suggest. We will work to 
 incorporate these suggestions, although some will require additional resourcing 
 (which we are currently seeking).
-   
+\end{quote}   
 \end{document}

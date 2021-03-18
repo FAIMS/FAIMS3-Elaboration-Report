@@ -1,265 +1,367 @@
-% this is my first package
-% 
-% (c) Brian Ballsun-Stanton
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FAIMS3 Report
+% LaTeX Class
+% Version 1.0 (March 12, 2021)
 %
-%% This program can be redistributed and/or modified under the terms
-%% of the LaTeX Project Public License Distributed from CTAN archives
-%% in directory macros/latex/base/lppl.txt.
-% 
-\NeedsTeXFormat{LaTeX2e}[1994/06/01]
-\ProvidesClass{faims3_report}
-  [2021/02/26 v0.01 LaTeX package for my own purpose]
-\LoadClass[a4paper,headings=small fontsize=10pt]{scrreprt}  
+% This template was created by:
+% Brian Ballsun-Stanton and
+% Vel (enquiries@latextypesetting.com)
+%
+% This program can be redistributed and/or modified under the terms
+% of the LaTeX Project Public License Distributed from CTAN archives
+% in directory macros/latex/base/lppl.txt.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\RequirePackage{background}
-\RequirePackage{listings}
-\RequirePackage{hyperref}
-\RequirePackage{enumitem}
-\RequirePackage[authordate,backend=biber,hyperref=true]{biblatex-chicago}
+%----------------------------------------------------------------------------------------
+%	CLASS CONFIGURATION
+%----------------------------------------------------------------------------------------
 
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{faims3_report}[2021/03/12 FAIMS Report Class v1.0]
 
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{report}} % Pass through any options to the base class
+\ProcessOptions\relax % Process given options
 
+\LoadClass[11pt]{report} % Load the base class
 
+%----------------------------------------------------------------------------------------
+%	REQUIRED PACKAGES AND MISC CONFIGURATIONS
+%----------------------------------------------------------------------------------------
 
-%\RequirePackage[british]{babel}
-%\RequirePackage[autostyle,english=british]{csquotes}
-\setlist[itemize]{noitemsep, topsep=0mm,
-labelindent=3mm, leftmargin=*,
-widest=3., align=right}
-\setlist[enumerate]{noitemsep, topsep=0mm,
-labelindent=3mm, leftmargin=*,
-widest=3., align=right}
+\RequirePackage{listings} % Required for including code fragments
 
+\usepackage{graphicx} % Required for including images
+\graphicspath{{Images/}{./}} % Specifies where to look for included images (trailing slash required)
+
+\setlength{\parindent}{0em} % Stop paragraph indentation
+\setlength{\parskip}{1em} % Vertical whitespace between paragraphs
+
+\RequirePackage{setspace} % Required for changing line spacing
+\linespread{1.25} % Increase line spacing slightly
+
+\RequirePackage[some]{background} % Required for including a background image
+\backgroundsetup{ % First page background image setup
+	firstpage = true,
+	scale = 1,
+	angle = 0,
+	opacity = 1,
+	contents = {\includegraphics[width=\paperwidth, height=\paperheight, keepaspectratio]{page1-template.pdf}} % Background image file
+}
+
+\RequirePackage{datetime} % Required for changing how dates are output
+\newdateformat{ddmonyyyy}{\THEDAY{}  \monthname{} \THEYEAR{}} % Define style for dates
+\ddmonyyyy % Use the date style defined above as the default
+
+\usepackage{etoolbox} % Required for conditional logic and easy manipulation of existing commands
+\patchcmd{\chapter}{plain}{fancy}{}{} % Make pages created using the \chapter command use the custom headers and footers
+
+%----------------------------------------------------------------------------------------
+%	MARGINS
+%----------------------------------------------------------------------------------------
+
+\usepackage[
+	a4paper, % Paper size
+	top=3.75cm, % Top margin
+	bottom=2.75cm, % Bottom margin
+	left=2cm, % Left margin
+	right=2cm, % Right margin
+	footskip=1cm, % Space from the bottom margin to the baseline of the footer
+	headsep=0.75cm, % Space from the top margin to the baseline of the header
+	headheight=2.5cm, % Height of the header
+	%showframe % Uncomment to show the frames around the margins for debugging purposes
+]{geometry}
+
+%----------------------------------------------------------------------------------------
+%	HEADERS AND FOOTERS
+%----------------------------------------------------------------------------------------
+
+\RequirePackage{fancyhdr} % Required for customising headers and footers
+
+\fancyhead{} % Clear default headers
+\fancyfoot{} % Clear default footers
+
+\renewcommand{\headrulewidth}{0pt} % Remove default top horizontal rule
+
+\fancyhead[R]{\includegraphics[width=4cm, keepaspectratio]{Faims-large.png}\hspace{-1.25cm}} % Right header
+
+\fancyfoot[R]{\color{faimsblue}\footnotesize\thepage} % Right footer
+\fancyfoot[L]{\color{faimsblue}\footnotesize Macquarie University \textbf{CC-BY}} % Left footer
+
+\pagestyle{fancy} % Enable the custom headers and footers
+
+%----------------------------------------------------------------------------------------
+%	SECTIONS
+%----------------------------------------------------------------------------------------
+
+\usepackage{titlesec} % Required for modifying sections
+
+\titleformat
+	{\chapter} % Section type being modified
+	[block] % Shape type, can be: hang, block, display, runin, leftmargin, rightmargin, drop, wrap, frame
+	{\huge\color{faimsblue}} % Format of the whole section
+	{\thechapter} % Format of the section label
+	{8pt} % Space between the title and label
+	{} % Code before the label
+	[] % Code after the label
+
+\titlespacing*{\chapter}{0pt}{-3\baselineskip}{0pt} % Spacing around section titles, the order is: left, before and after
+
+%------------------------------------------------
+
+\titleformat
+	{\section} % Section type being modified
+	[block] % Shape type, can be: hang, block, display, runin, leftmargin, rightmargin, drop, wrap, frame
+	{\Large\color{faimsblue}} % Format of the whole section
+	{\thesection} % Format of the section label
+	{5pt} % Space between the title and label
+	{} % Code before the label
+	[] % Code after the label
+
+\titlespacing*{\section}{0pt}{0.5\baselineskip}{0pt} % Spacing around section titles, the order is: left, before and after
+
+%------------------------------------------------
+
+\titleformat
+	{\subsection} % Section type being modified
+	[block] % Shape type, can be: hang, block, display, runin, leftmargin, rightmargin, drop, wrap, frame
+	{\large\color{faimsblue}} % Format of the whole section
+	{\thesubsection} % Format of the section label
+	{5pt} % Space between the title and label
+	{} % Code before the label
+	[] % Code after the label
+
+\titlespacing*{\subsection}{0pt}{0.5\baselineskip}{0pt} % Spacing around section titles, the order is: left, before and after
+
+%------------------------------------------------
+
+\titleformat
+	{\subsubsection} % Section type being modified
+	[block] % Shape type, can be: hang, block, display, runin, leftmargin, rightmargin, drop, wrap, frame
+	{\color{faimsblue}} % Format of the whole section
+	{\thesubsubsection} % Format of the section label
+	{5pt} % Space between the title and label
+	{} % Code before the label
+	[] % Code after the label
+
+\titlespacing*{\subsubsection}{0pt}{0.5\baselineskip}{0pt} % Spacing around section titles, the order is: left, before and after
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+\usepackage{titletoc} % Required for manipulating the table of contents
+
+\titlecontents{chapter} % Section type being modified
+	[0pt] % Left indentation
+	{\vspace{8pt}} % Before code
+	{\thecontentslabel\quad} % Formatting of numbered sections of this type
+	{} % Formatting of numberless sections of this type
+	{\hfill\contentspage} % Formatting of the filler to the right of the heading
+	[] % After code
+
+%------------------------------------------------
+
+\titlecontents{section} % Section type being modified
+	[0.65cm] % Left indentation
+	{} % Before code
+	{\thecontentslabel\quad} % Formatting of numbered sections of this type
+	{} % Formatting of numberless sections of this type
+	{\titlerule*[8pt]{.}\contentspage} % Formatting of the filler to the right of the heading
+	[] % After code
+
+%------------------------------------------------
+
+\titlecontents{subsection} % Section type being modified
+	[1.6cm] % Left indentation
+	{} % Before code
+	{\thecontentslabel\quad} % Formatting of numbered sections of this type
+	{} % Formatting of numberless sections of this type
+	{\titlerule*[8pt]{.}\contentspage} % Formatting of the filler to the right of the heading
+	[] % After code
+
+%------------------------------------------------
+
+\newcommand{\outputtoc}{ % Command to output the table of contents with correct styling
+	\begingroup
+		\setlength{\parskip}{2pt} % Reduce space between entries in the ToC
+		\tableofcontents % Automatically populated from the various section commands
+	\endgroup
+}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\RequirePackage[
+	authordate,
+	backend=biber, % Use biber to compile the bibliography
+	hyperref=true
+]{biblatex-chicago} % Bibliography style
+
+%----------------------------------------------------------------------------------------
+%	LINKS
+%----------------------------------------------------------------------------------------
+
+\RequirePackage{hyperref} % Required for links
 
 \hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    filecolor=blue,      
-    urlcolor=blue,
-    citecolor=black
+	colorlinks=true, % Whether to colour links
+	linkcolor=blue, % Colour for \nameref links
+	filecolor=blue, % Colour of file links
+	urlcolor=blue, % Colour for \url and \href links
+	citecolor=black % Colour of reference citations
 }
-\RequirePackage[default,scale=0.95]{opensans} 
-\setmainfont[Ligatures=TeX]{Open Sans Light}
-\setsansfont[Ligatures=TeX]{Open Sans Light}
-\RequirePackage{datetime}
-\RequirePackage{xcolor,colortbl}
-\setlength{\parindent}{0em}
-\setlength{\parskip}{2em}
-%\renewcommand{\baselinestretch}{1.25} 
-\linespread{1.25}
+
+%----------------------------------------------------------------------------------------
+%	FONTS
+%----------------------------------------------------------------------------------------
+
+\usepackage{fontspec} % Required for specifying custom fonts
+
+\defaultfontfeatures{Ligatures=TeX} % To support LaTeX ligatures (e.g. `` and --)
+\defaultfontfeatures{Path=Fonts/} % Specify the location of font files
+
+\setmainfont{OpenSans}[ % Default to Open Sans Light
+	UprightFont=*-Light.ttf,
+	BoldFont=*-Semibold.ttf,
+	ItalicFont=*-LightItalic.ttf,
+	BoldItalicFont=*-SemiboldItalic.ttf
+]
+
+\newfontfamily\OpenSans{OpenSans}[ % Optional Open Sans (Regular) to be used with \OpenSans
+	UprightFont=*-Regular,
+	BoldFont=*-Bold,
+	ItalicFont=*-Italic,
+	BoldItalicFont=*-BoldItalic
+]
+
+\newfontfamily\OpenSansCondensed{OpenSans}[ % Optional Open Sans Condensed to be used with \OpenSansCondensed
+	UprightFont=*-CondensedLight,
+	BoldFont=*-CondensedBold,
+	ItalicFont=*-CondensedLightItalic
+]
+
+\NewDocumentCommand{\allcaps}{m}{\addfontfeatures{LetterSpace=1.5}\MakeUppercase{#1}} % Command to output upper case letters with increased letter spacing (kerning)
+
+\RequirePackage{microtype} % Required for improving typography
+
+%----------------------------------------------------------------------------------------
+%	LISTS
+%----------------------------------------------------------------------------------------
+
+\RequirePackage{enumitem} % Required for list customisation
+
+\setlist[itemize]{
+	noitemsep, % No spacing between items
+	topsep=0mm, % Spacing above the list
+	labelindent=3mm, % Blank space before the label
+	leftmargin=*, % No margin to the left of the list
+	widest=3., % Overrides default values for the label width
+	align=right % Label alignment
+}
+
+\setlist[enumerate]{
+	noitemsep, % No spacing between items
+	topsep=0mm, % Spacing above the list
+	labelindent=3mm, % Blank space before the label
+	leftmargin=*, % No margin to the left of the list
+	widest=3., % Overrides default values for the label width
+	align=right % Label alignment
+}
+
+%----------------------------------------------------------------------------------------
+%	COLOURS
+%----------------------------------------------------------------------------------------
+
+\RequirePackage{xcolor} % Required for specifying custom colours
 
 \definecolor{faimsblue}{RGB}{27,62,147}
 \definecolor{faimsorange}{RGB}{246,142,30}
 
-\DeclareRobustCommand\ebseries{\fontseries{eb}\selectfont}
-\DeclareRobustCommand\sbseries{\fontseries{sb}\selectfont}
-\DeclareRobustCommand\ltseries{\fontseries{l}\selectfont}
-\DeclareRobustCommand\clseries{\fontseries{cl}\selectfont}
-\DeclareRobustCommand\cseries{\fontseries{c}\selectfont}
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
 
-
-\DeclareTextFontCommand{\texteb}{\ebseries}
-\DeclareTextFontCommand{\textsb}{\sbseries}
-\DeclareTextFontCommand{\textlt}{\ltseries}
-\DeclareTextFontCommand{\textcl}{\clseries}
-\DeclareTextFontCommand{\textc}{\cseries}
-%\RequirePackage{titlesec}
-\defaultfontfeatures{Ligatures=TeX}
-\RequirePackage{microtype}
-
-
-
-
-%\titleformat*{\section}{\Large\clseries\color{faimsblue}}
-
-\setkomafont{chapter}{\fontspec{Open Sans}\fontseries{l}\selectfont\huge\color{faimsblue}}
-
-\setkomafont{section}{\Large\color{faimsblue}}
-\setkomafont{subsection}{\large\color{faimsblue}}
-\setkomafont{subsubsection}{\color{faimsblue}}
-
-\backgroundsetup{firstpage = true,scale = 1, angle = 0, opacity = 1,
-   contents = {\includegraphics[width = \paperwidth,
-   height = \paperheight, keepaspectratio]
-   {page1-template.pdf}}}
-
-
-%\RequirePackage[DIV=8]{typearea}
-
-\RequirePackage[a4paper]{geometry}
-\RequirePackage{setspace}
-\RequirePackage{lipsum}
-\RequirePackage{fancyhdr}
-\geometry{
- a4paper,
- left=20mm,
- top=37.5mm,
- right=20mm,
- bottom=27.5mm,
- footskip=10mm
- }
- \renewcommand{\footruleskip}{2mm}
-
-% \geometry{
-%  a4paper,
-%  left=20mm,
-%  top=30mm,
-%  right=20mm,
-%  bottom=30mm
-%  }
-
-
-
-\fancyhead{}
-\fancyfoot{}
-\fancypagestyle{plain}{}
-
-\renewcommand{\headrulewidth}{0.0pt}
-\renewcommand{\footrulewidth}{0.0pt}
-\fancyfoot[R]{\color{faimsblue}\fontspec{Open Sans}\fontseries{c}\selectfont\footnotesize\thepage}
-\fancyfoot[L]{\color{faimsblue}\fontspec{Open Sans}\fontseries{c}\selectfont\footnotesize{}CC-BY Macquarie University}
-
-
-\renewcommand{\footrulewidth}{0.0pt}
-\makeatletter
-\patchcmd{\footrule}
-  {\if@fancyplain}
-  {\color{faimsorange}\if@fancyplain}
-  {}
-  {}
-\makeatother
-
-\newdateformat{ddmonyyyy}{\THEDAY{}  \monthname{} \THEYEAR{}}
-
-
-\NewDocumentCommand{\allcaps}{m}{%
-  {\addfontfeatures{LetterSpace=1.5}\uppercase{#1}}%
+\renewcommand{\maketitle}{
+	\BgThispage % Only display the background image on the title page
+	\thispagestyle{empty} % No headers or footers on title page
+	
+	\vspace*{1cm}
+	
+	\parbox{.6\textwidth}{ % Wrap the title so it does not overlap with the right side of the background image
+		\begin{flushleft} % No justification
+			\setstretch{1} % Line spacing
+			\OpenSans % Open Sans font
+			\fontsize{30pt}{36pt}\selectfont % Font size
+			\bfseries % Bold
+			\textcolor{faimsblue}{\allcaps{\reporttitle}} % Report title and styling
+		\end{flushleft}
+	}
+	
+	\vspace{-5mm}
+	
+	\parbox{.7\textwidth}{ % Wrap the report subtitle so it does not overlap with the logos on the right side of the background image
+		\setstretch{1} % Line spacing
+		\begin{flushleft} % No justification
+			\fontsize{18pt}{21pt}\selectfont % Font size
+			\textcolor{faimsblue}{\allcaps{\reportsubtitle}} % Report subtitle and styling
+		\end{flushleft}
+	}
+	
+	\vspace{2cm}
+	
+	\parbox{.7\textwidth}{ % Wrap the report information so it does not overlap with the logos on the right side of the background image
+		\renewcommand{\arraystretch}{1.5} % Table row heights
+		
+		\begin{tabular}{@{}l p{.6\textwidth}}
+			\textcolor{faimsblue}{For} & \reportfor \\
+			\textcolor{faimsblue}{License} & \reportlicense \\
+			\textcolor{faimsblue}{Contact} & \reportcontact \\
+			\textcolor{faimsblue}{Version} & \reportversion \\
+			\textcolor{faimsblue}{DOI} & \reportdoi \\
+			\textcolor{faimsblue}{Authors} & \reportauthors \\
+		\end{tabular}
+	}
+	
+	\vfill
+	
+	\begingroup
+		\fontsize{16pt}{19pt}\selectfont % Font size
+		\textcolor{faimsblue}{\reportdate} % Report date
+	\endgroup
 }
 
-\NewDocumentCommand{\condensed}{m}{%
-  {\addfontfeatures{LetterSpace=.9}#1}%
+%----------------------------------------------------------------------------------------
+%	COPYRIGHT NOTICE
+%----------------------------------------------------------------------------------------
+
+\newcommand{\copyrightnotice}{
+	\begingroup
+		\footnotesize
+		This document is licensed under Creative Commons 4.0 International - With Attribution \\
+		Copyright 2021 Macquarie University.\\
+		This document was typeset with \LaTeX{}.\\\\
+		Macquarie University NSW 2109 \\ Australia \\
+		E: info@faims.edu.au \\
+		W: faims.edu.au \\ 
+		ABN 90 952 801 237 \\
+		CRICOS Provider 00002J
+	\endgroup
 }
 
+%----------------------------------------------------------------------------------------
+%	CUSTOM COMMANDS
+%----------------------------------------------------------------------------------------
 
+\newcommand{\reporttitle}[1]{\renewcommand{\reporttitle}{#1}}
+\newcommand{\reportsubtitle}[1]{\renewcommand{\reportsubtitle}{#1}}
+\newcommand{\reportdate}[1]{\renewcommand{\reportdate}{#1}}
+\newcommand{\reportfor}[1]{\renewcommand{\reportfor}{#1}}
+\newcommand{\reportlicense}[1]{\renewcommand{\reportlicense}{#1}}
+\newcommand{\reportcontact}[1]{\renewcommand{\reportcontact}{#1}}
+\newcommand{\reportversion}[1]{\renewcommand{\reportversion}{#1}}
+\newcommand{\reportdoi}[1]{\renewcommand{\reportdoi}{#1}}
+\newcommand{\reportauthors}[1]{\renewcommand{\reportauthors}{#1}}
 
-
-
-
-\renewcommand{\mddefault}{l}% switch default weight to light
-
-\RequirePackage{anyfontsize}
-\ddmonyyyy
-
-
-\renewcommand{\maketitle}{%
-\begin{titlepage}
-    \vspace*{1cm}%
-%\fbox{
-\parbox{.6\textwidth}{
-\begin{flushleft}
-\setstretch{1}
-\fontspec{Open Sans}\selectfont
-\fontsize{30pt}{36pt}%
-\bfseries
-\selectfont%
-\textcolor{faimsblue}{%
-\allcaps{FAIMS 3
-Elaboration
-Report}
-}
-\end{flushleft}
-}
-%}
-%https://tex.stackexchange.com/questions/68745/possible-values-for-fontseries-and-fontshape
-
-\vspace{-5mm}
-
-\parbox{.7\textwidth}{
-\setstretch{1}
-\begin{flushleft}
-
-\fontsize{18pt}{21pt}%
-\fontseries{l}%
-\selectfont%
-\textcolor{faimsblue}{%
-\allcaps{Design technologies for 2021-2022 the mobile app development cycle}
-}
-
-
-\end{flushleft}}
-
-\parbox{.7\textwidth}{
-
-{\renewcommand{\arraystretch}{1.5}
-
-\vspace{1cm}
-
-\fontseries{l}%
-\selectfont%
-\begin{tabular}{@{}l p{.6\textwidth}}
-\textcolor{faimsblue}{
-For} & Technical Advisory Group \&\newline Steering Committee \\
-\textcolor{faimsblue}{License} & Creative Commons 4.0 International - With Attribution \\
-\textcolor{faimsblue}{Contact} & Brian Ballsun-Stanton \newline <brian@faims.edu.au>
-\\
-\textcolor{faimsblue}{Version} & 1.0.0-SC
-\\
-\textcolor{faimsblue}{DOI} & 10.5281/zenodo.4546985
-\\
-\textcolor{faimsblue}{Authors} & Brian Ballsun-Stanton \newline
-Rini Angreani \newline
-Steve Cassidy \newline
-Simon O’Toole \newline
-Nuria Lorente \newline
-Elizabeth Mannering
-
-
-\end{tabular}
-
-}}
-
-\vfill
-\fontsize{16pt}{19pt}%
-\fontseries{cl}%
-\selectfont%
-\textcolor{faimsblue}{%
-\today
-}
-
-
-\end{titlepage}
-    
-}
-
-\RedeclareSectionCommand[
-  %runin=false,
-  afterindent=false,
-  beforeskip=0pt,
-  afterskip=.5\baselineskip]{chapter}
-\RedeclareSectionCommand[
-  %runin=false,
-  afterindent=false,
-  beforeskip=\baselineskip,
-  afterskip=.5\baselineskip]{section}
-\RedeclareSectionCommand[
-  %runin=false,
-  afterindent=false,
-  beforeskip=.75\baselineskip,
-  afterskip=.5\baselineskip]{subsection}
-\RedeclareSectionCommand[
-  %runin=false,
-  afterindent=false,
-  beforeskip=.5\baselineskip,
-  afterskip=.25\baselineskip]{subsubsection}
-\RedeclareSectionCommand[
-  runin=true,
-  %afterindent=false,
-  beforeskip=.5\baselineskip,
-  afterskip=1em]{paragraph}
-\RedeclareSectionCommand[
-  runin=true,
-  %afterindent=false,
-  beforeskip=.5\baselineskip,
-  afterskip=1em]{subparagraph}
-%https://tex.stackexchange.com/a/39991
-\endinput
+%\newcommand{\command}[1]{\renewcommand{\command}{#1}}

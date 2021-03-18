@@ -1,59 +1,88 @@
-\documentclass{faims3_report}
-\bibliography{references}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FAIMS3 Report
+% LaTeX Template
+% Version 1.0 (March 12, 2021)
+%
+% This template was created by:
+% Brian Ballsun-Stanton and
+% Vel (enquiries@latextypesetting.com)
+%
+%!TEX program = xelatex
+% Note: this template must be compiled with XeLaTeX rather than PDFLaTeX
+% due to the custom fonts used. The line above should ensure this happens
+% automatically, but if it doesn't, your LaTeX editor should have a simple toggle
+% to switch to using XeLaTeX.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{FAIMS 3
-Elaboration
-Report}
-\subtitle{Design technologies for 2021-2022 the mobile app development cycle}
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{faims3_report}
+
+\bibliography{references.bib} % BibLaTeX bibliography file
+
+%----------------------------------------------------------------------------------------
+%	REPORT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\reporttitle{FAIMS 3\\ Elaboration\\ Report}
+\reportsubtitle{Design technologies for 2021-2022 the mobile app development cycle}
+\reportfor{Technical Advisory Group \&\newline Steering Committee}
+\reportlicense{Creative Commons 4.0 International - With Attribution}
+\reportcontact{Brian Ballsun-Stanton \newline <brian@faims.edu.au>}
+\reportversion{1.0.0-SC}
+\reportdoi{10.5281/zenodo.4546985}
+\reportauthors{ % Separate additional authors with \newline instead of \\
+	Brian Ballsun-Stanton \newline
+	Rini Angreani \newline
+	Steve Cassidy \newline
+	Simon O’Toole \newline
+	Nuria Lorente \newline
+	Elizabeth Mannering
+}
+\reportdate{\today}
+
+%----------------------------------------------------------------------------------------
 
 \begin{document}
 
-\maketitle
+%----------------------------------------------------------------------------------------
+%	OPENING PAGES
+%----------------------------------------------------------------------------------------
 
-\pagebreak
-\NoBgThispage
-\makeatletter
-\def\verbatim@font{\normalfont}
-\makeatother
+\maketitle % Output the title page, automatically populated using the report information specified above
 
+\newpage
+
+%------------------------------------------------
 
 \textcolor{faimsblue}{Changelog}
 
 \begin{tabular}{@{}l l p{.7\textwidth}}
-1.0.0-SC & 2021-02-25 & Typesetting in \LaTeX{}\\
-0.9.0-SC & 2021-02-18 & Report with comments to Shawn Ross for  advancement to steering committee. \\
-0.2.0-TAG & 2021-02-12 & Adding feedback from emails \\
-0.1.0-TAG & 2020-12-17 & Final typesetting and release to the Technical Advisory Group \\
-0.0.5 & 2020-12-16 & Edit by BBS \\
-0.0.4 & 2020-12-15 & Edit by Shawn Ross (versioned named before edit) \\
-0.0.3 & 2020-12-09 & First edit by BBS \\
-0.0.2 & 2020-12-03 & Release to dev team, Update QA work division wording, Updates on framework/platform choices, SC and BBS discussed frameworks and JSON Forms choices. \\
-0.0.1 & 2020-11-26 & Initial composition \\
-
+	1.0.0-SC & 2021-02-25 & Typesetting in \LaTeX{}\\
+	0.9.0-SC & 2021-02-18 & Report with comments to Shawn Ross for  advancement to steering committee. \\
+	0.2.0-TAG & 2021-02-12 & Adding feedback from emails \\
+	0.1.0-TAG & 2020-12-17 & Final typesetting and release to the Technical Advisory Group \\
+	0.0.5 & 2020-12-16 & Edit by BBS \\
+	0.0.4 & 2020-12-15 & Edit by Shawn Ross (versioned named before edit) \\
+	0.0.3 & 2020-12-09 & First edit by BBS \\
+	0.0.2 & 2020-12-03 & Release to dev team, Update QA work division wording, Updates on framework/platform choices, SC and BBS discussed frameworks and JSON Forms choices. \\
+	0.0.1 & 2020-11-26 & Initial composition \\
 \end{tabular}
 \vfill
-{\footnotesize
-This document is licensed under Creative Commons 4.0 International - With Attribution \\Copyright 2020 Macquarie University. 
-\\
-This document was typeset with \LaTeX{}.
-\\
-\\
-Macquarie University NSW 2109 \\ Australia \\
-E: info@faims.edu.au \\
-W: faims.edu.au \\ 
-ABN 90 952 801 237 \\
-CRICOS Provider 00002J} 
-\pagebreak
-\pagestyle{fancy}
+\copyrightnotice % Output the copyright notice defined in the class
 
+\newpage
 
-\backgroundsetup{scale = 1, angle = 0, opacity = 1, position={162mm,10mm},
-   contents = {\includegraphics[width = 40mm, keepaspectratio]
-   {Faims-large.png}}}
+%----------------------------------------------------------------------------------------
 
+\outputtoc % Output the table of contents, automatically populated from the various section commands
 
-\tableofcontents
-
+%----------------------------------------------------------------------------------------
+%	REPORT BODY
+%----------------------------------------------------------------------------------------
 
 \chapter{Design objectives}
 
@@ -1130,5 +1159,8 @@ but this reminder is timely. We have also used some of these approaches in the p
 not all of them, especially as part of a `package' like you suggest. We will work to 
 incorporate these suggestions, although some will require additional resourcing 
 (which we are currently seeking).
-\end{quote}   
+\end{quote}
+
+%----------------------------------------------------------------------------------------
+
 \end{document}

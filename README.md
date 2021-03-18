@@ -1,9 +1,16 @@
-# FAIMS3-Report-LaTeX-Template
-LaTeX report template for FAIMS publications and reports
+# FAIMS3-Elaboration-Report
+Design technologies for 2021-2022 the mobile app development cycle
+
+## DOI 
+https://dx.doi.org/10.5281/zenodo.4546985
 
 ## Authors
-* Brian Ballsun-Stanton <brian@faims.edu.au>
-* Vel <enquiries@latextypesetting.com>
+	Brian Ballsun-Stanton
+	Rini Angreani
+	Steve Cassidy
+	Simon O’Toole
+	Nuria Lorente
+	Elizabeth Mannering
 
 ## License
 
